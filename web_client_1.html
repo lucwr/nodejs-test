@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Client 1</title>
+  </head>
+  <body>
+    <h3>Web Client 1</h3>
+    <input id="messageInput" type="text" placeholder="Type a message..." />
+    <button id="sendButton">Send</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.1/socket.io.js"></script>
+    <script>
+      const socket = io('http://localhost:8080');
+
+      document.getElementById('sendButton').addEventListener('click', () => {
+        const message = document.getElementById('messageInput').value;
+
+        socket.emit('message', message);
+      });
+
+      socket.on('message', (message) => {
+        window.alert(`New message from client 2: ${message}`);
+      });
+    </script>
+  </body>
+</html>
